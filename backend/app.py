@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
@@ -8,7 +9,10 @@ from datetime import datetime
 import numpy as np
 from PIL import Image
 import pathlib
-from google import genai
+import google.generativeai as genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "models/MobileNetV2_best.h5")
 LABELS_PATH = os.path.join(os.path.dirname(__file__), "models/class_labels.json")
