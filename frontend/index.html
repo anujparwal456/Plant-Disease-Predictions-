@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropCare AI - Smart Disease Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <div class="logo-wrapper">
+                            <div class="logo-bg-rotate"></div>
+                            <div class="logo-bg-main">
+                                <div class="logo-icon">
+                                    <i data-lucide="leaf"></i>
+                                    <i data-lucide="sparkles" class="sparkle-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="logo-text">
+                            <h1 class="logo-title">CropCare AI</h1>
+                            <p class="logo-subtitle">Smart Disease Detection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container main-content">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h2 class="hero-title">Scan. Detect. Protect Your Crops.</h2>
+                <p class="hero-description">
+                    Advanced AI-powered plant disease detection. Get instant diagnosis and treatment recommendations for healthier crops.
+                </p>
+                <button class="btn btn-primary btn-lg" onclick="scrollToUpload()">
+                    <i data-lucide="scan"></i>
+                    Start Scanning
+                </button>
+            </section>
+
+            <!-- Upload & Camera Section -->
+            <div class="card upload-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i data-lucide="camera"></i>
+                        Upload or Capture Plant Photo
+                    </h3>
+                    <p class="card-description">
+                        Take a clear photo of the plant leaf or crop for accurate disease detection
+                    </p>
+                </div>
+                <div class="card-content">
+                    <div class="upload-grid">
+                        <!-- Upload Section -->
+                        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                            <i data-lucide="upload" class="upload-icon"></i>
+                            <h4 class="upload-title">Upload Image</h4>
+                            <p class="upload-subtitle">Click to browse or drag & drop</p>
+                            <button class="btn btn-outline">Choose File</button>
+                            <input type="file" id="fileInput" accept="image/*" onchange="handleFileUpload(event)" hidden>
+                        </div>
+
+                        <!-- Camera Section -->
+                        <div class="upload-box">
+                            <i data-lucide="camera" class="upload-icon"></i>
+                            <h4 class="upload-title">Use Camera</h4>
+                            <p class="upload-subtitle">Capture a live photo</p>
+                            <button class="btn btn-success" id="cameraBtn" onclick="openCamera()">Open Camera</button>
+                        </div>
+                    </div>
+
+                    <!-- Camera View -->
+                    <div id="cameraView" class="camera-view hidden">
+                        <video id="videoElement" autoplay playsinline></video>
+                        <canvas id="canvasElement" class="hidden"></canvas>
+                        <div class="capture-btn-wrapper">
+                            <button class="capture-btn" onclick="capturePhoto()">
+                                <div class="capture-btn-inner"></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="image-preview hidden">
+                        <img id="previewImage" alt="Uploaded plant">
+                        <button class="remove-btn" onclick="removeImage()">✕</button>
+                    </div>
+
+                    <!-- Scan Button -->
+                    <div id="scanButtonWrapper" class="scan-btn-wrapper hidden">
+                        <button class="btn btn-primary btn-lg" id="scanBtn" onclick="scanDisease()">
+                            <i data-lucide="scan"></i>
+                            <span id="scanBtnText">Scan for Disease</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scanning Progress -->
+            <div id="scanningProgress" class="card scanning-card hidden">
+                <div class="scanning-content">
+                    <div class="spinner-wrapper">
+                        <div class="spinner-bg"></div>
+                        <div class="spinner"></div>
+                        <i data-lucide="sparkles" class="spinner-icon"></i>
+                    </div>
+                    <h3 class="scanning-title">Analyzing Plant Image...</h3>
+                    <p class="scanning-subtitle">AI model processing deep learning analysis</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

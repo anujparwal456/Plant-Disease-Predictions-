@@ -1,0 +1,105 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+.env
+.env.local
+.env.*.local
+
+# Node / NPM
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.sublime-workspace
+.sublime-project
+*.code-workspace
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Database & Uploads
+backend/data.db
+backend/uploads/
+*.db
+*.sqlite
+*.sqlite3
+
+# Build & Distribution
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Logs
+*.log
+logs/
+
+# Temporary Files
+*.tmp
+*.temp
+*~
+.cache/
+
+# IDE specific Python
+.pylintrc
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Next.js / Frontend Build
+frontend/.next/
+frontend/.next/dev/lock
+
+# Render / Deployment
+render.yaml (optional - include if not sensitive)
+
+# Misc
+.DS_Store
+*.pem
+*.key

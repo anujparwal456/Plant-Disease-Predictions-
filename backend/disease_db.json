@@ -1,0 +1,50 @@
+{
+  "Tomato___Early_blight": {
+    "crop": "Tomato",
+    "disease": "Early blight",
+    "status": "diseased",
+    "symptoms": [
+      "Dark concentric lesions on older leaves",
+      "Yellowing around lesions",
+      "Premature leaf drop"
+    ],
+    "remedy": "Remove affected foliage, apply appropriate fungicide such as chlorothalonil or mancozeb following label instructions.",
+    "prevention": "Practice crop rotation, avoid overhead irrigation, and use resistant varieties when available."
+  },
+  "Tomato___Late_blight": {
+    "crop": "Tomato",
+    "disease": "Late blight",
+    "status": "diseased",
+    "symptoms": [
+      "Water-soaked lesions that rapidly enlarge",
+      "White sporulation under humid conditions",
+      "Stem blight and fruit rot"
+    ],
+    "remedy": "Apply systemic fungicides and remove infected plants; destroy infected debris.",
+    "prevention": "Improve drainage, avoid overhead watering, and monitor weather conditions for high-risk periods."
+  },
+  "Potato___Late_blight": {
+    "crop": "Potato",
+    "disease": "Late blight",
+    "status": "diseased",
+    "symptoms": ["Dark lesions on leaves and stems", "Rapid collapse under wet conditions", "Tubers with brown rot"],
+    "remedy": "Use certified seed, apply fungicides (e.g., metalaxyl mixtures), remove and destroy infected plants.",
+    "prevention": "Maintain good field drainage and avoid excess nitrogen fertilization."
+  },
+  "Apple___Apple_scab": {
+    "crop": "Apple",
+    "disease": "Apple scab",
+    "status": "diseased",
+    "symptoms": ["Olive-green to brown velvety lesions on leaves and fruit", "Premature leaf drop"],
+    "remedy": "Apply recommended fungicides during green tip to petal fall and remove fallen leaves.",
+    "prevention": "Plant resistant cultivars and remove leaf litter."
+  },
+  "*__healthy": {
+    "crop": "Unknown",
+    "disease": "Healthy",
+    "status": "healthy",
+    "symptoms": ["No visible disease symptoms detected"],
+    "remedy": "No treatment required.",
+    "prevention": "Maintain good cultural practices and monitor regularly."
+  }
+}

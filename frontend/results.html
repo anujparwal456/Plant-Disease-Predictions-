@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Analysis Report - CropCare AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content-results">
+                    <div class="logo-section">
+                        <div class="logo-wrapper logo-wrapper-small">
+                            <div class="logo-bg-rotate"></div>
+                            <div class="logo-bg-main">
+                                <div class="logo-icon logo-icon-small">
+                                    <i data-lucide="leaf"></i>
+                                    <i data-lucide="sparkles" class="sparkle-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="logo-text">
+                            <h1 class="logo-title-small">CropCare AI</h1>
+                            <p class="logo-subtitle-small">Disease Analysis Report</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline" onclick="window.location.href='index.html'">
+                        <i data-lucide="arrow-left"></i>
+                        New Scan
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container main-content">
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="downloadReport()">
+                    <i data-lucide="download"></i>
+                    Download Report
+                </button>
+            </div>
+
+            <div class="results-grid">
+                <!-- Left Column -->
+                <div class="results-left">
+                    <!-- Scanned Image -->
+                    <div class="card image-card" id="imageCard">
+                        <div class="status-bar"></div>
+                        <img id="resultImage" alt="Scanned crop">
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="card">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="activity"></i>
+                                Quick Stats
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="stat-row">
+                                <span class="stat-label">Confidence</span>
+                                <span class="stat-value" id="statConfidence"></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Severity</span>
+                                <span class="stat-value" id="statSeverity"></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Spread Risk</span>
+                                <span class="stat-value" id="statSpread"></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Recovery Time</span>
+                                <span class="stat-value" id="statRecovery"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scan Info -->
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="info-row">
+                                <i data-lucide="calendar"></i>
+                                <span id="scanDate"></span>
+                            </div>
+                            <div class="info-row">
+                                <i data-lucide="leaf"></i>
+                                <span id="reportId"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="results-right">
+                    <!-- Disease Identification -->
+                    <div class="card" id="identificationCard">
+                        <div class="status-bar"></div>
+                        <div class="card-header-accent">
+                            <div class="disease-header">
+                                <div>
+                                    <div class="disease-title-row">
+                                        <i data-lucide="check-circle-2" id="statusIcon"></i>
+                                        <h2 class="disease-crop" id="cropName"></h2>
+                                    </div>
+                                    <p class="disease-name" id="diseaseName"></p>
+                                    <p class="disease-scientific" id="scientificName"></p>
+                                </div>
+                                <div class="status-badge" id="statusBadge"></div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="info-grid">
+                                <div>
+                                    <p class="info-title">Affected Area</p>
+                                    <p class="info-text" id="affectedArea"></p>
+                                </div>
+                                <div>
+                                    <p class="info-title">Recovery Timeline</p>
+                                    <p class="info-text recovery-text">
+                                        <i data-lucide="clock"></i>
+                                        <span id="recoveryTime"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms -->
+                    <div class="card" id="alternativesCard">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="layers"></i>
+                                Prediction Alternatives
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <p id="uncertainText" style="display:none; color:#b45309; font-weight:600;">The model is uncertain. Showing top alternatives.</p>
+                            <ul id="alternativesList"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Ambiguous candidate details -->
+                    <div class="card" id="ambiguousCard" style="display:none">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="help-circle"></i>
+                                Ambiguous Candidates Details
+                            </h3>
+                        </div>
+                        <div class="card-content" id="ambiguousDetails"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="alert-circle"></i>
+                                Observed Symptoms
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <ul class="symptom-list" id="symptomsList"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Treatment -->
+                    <div class="card">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="sparkles"></i>
+                                Immediate Treatment Required
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="treatment-text" id="remedyText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Chemical Treatments -->
+                    <div class="card" id="chemicalsCard">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="beaker"></i>
+                                Recommended Chemical Treatments
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <div id="chemicalsList"></div>
+                        </div>
+                    </div>
+
+                    <!-- Organic Treatment -->
+                    <div class="card">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="leaf"></i>
+                                Organic Treatment Options
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="treatment-text" id="organicText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Fertilizer -->
+                    <div class="card">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="droplets"></i>
+                                Fertilizer & Nutrient Recommendations
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="treatment-text" id="fertilizerText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Prevention -->
+                    <div class="card">
+                        <div class="card-header-accent">
+                            <h3 class="card-title-small">
+                                <i data-lucide="shield"></i>
+                                Prevention & Future Care
+                            </h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="treatment-text" id="preventionText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="card disclaimer-card">
+                        <div class="card-content">
+                            <p class="disclaimer-text">
+                                <strong>Disclaimer:</strong> This report is generated by AI-powered analysis and should be used as a guideline. For critical agricultural decisions, please consult with agricultural experts, plant pathologists, or local agricultural extension services.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="results.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
+<!-- Uncertainty modal -->
+<div id="uncertainModal" class="modal-overlay hidden">
+    <div class="modal">
+        <h3>Result Uncertain</h3>
+        <p>The model is not confident about this prediction. You can re-scan or upload another image for a better result.</p>
+        <div class="modal-actions">
+            <button id="modalRescanBtn" class="btn btn-outline">Re-scan</button>
+            <button id="modalUploadBtn" class="btn btn-primary">Upload Another</button>
+            <button id="modalDismissBtn" class="btn">Dismiss</button>
+        </div>
+    </div>
+</div>
