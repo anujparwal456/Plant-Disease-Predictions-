@@ -10,8 +10,8 @@ from PIL import Image
 import pathlib
 from google import genai
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "../plant disease dataset/PlantDoc-Dataset/models/MobileNetV2_best.h5")
-LABELS_PATH = os.path.join(os.path.dirname(__file__), "../plant disease dataset/PlantDoc-Dataset/models/class_labels.json")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "models/MobileNetV2_best.h5")
+LABELS_PATH = os.path.join(os.path.dirname(__file__), "models/class_labels.json")
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
 DB_PATH = os.path.join(os.path.dirname(__file__), "data.db")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCSPkavnaWhdOBpO4Co_rl7muKDZRZS_p0")
