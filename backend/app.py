@@ -12,13 +12,28 @@ import pathlib
 import google.generativeai as genai
 from dotenv import load_dotenv
 
+
 load_dotenv()
+
+MODEL = None
+MODEL_AVAILABLE = False
+
+try:
+    MODEL = model
+    MODEL_AVAILABLE = True
+    print("✅ ML Model loaded successfully")
+except Exception as e:
+    print(f"⚠️ Warning: ML model failed to load: {e}")
+    print("🔄 Continuing without ML model - using Gemini API only")
+    MODEL = None
+    MODEL_AVAILABLE = False
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "models/MobileNetV2_best.h5")
 LABELS_PATH = os.path.join(os.path.dirname(__file__), "models/class_labels.json")
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
 DB_PATH = os.path.join(os.path.dirname(__file__), "data.db")
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCSPkavnaWhdOBpO4Co_rl7muKDZRZS_p0")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -409,20 +424,22 @@ def generate_report(label, confidence):
     return report
 
 
-@app.route("/api/predict", methods=["POST"])  # accepts multipart file
-def api_predict():
-    init_db()
+@app.route("/api/predict", methods=["POST"])
+def predict():
+    if not MODEL_AVAILABLE:
+        return jsonify({
+            "status": "error",
+            "message": "ML model not available. Using Gemini analysis only.",
+            "confidence": 0,
+            "use_gemini_only": True
+        }), 503
     file = None
     if "image" in request.files:
         file = request.files["image"]
-    elif request.json and "image" in request.json:
-        # base64 data URL
-        import base64, re, io
-
-        data = request.json.get("image")
-        m = re.match(r"data:(image/\w+);base64,(.*)", data)
-        if not m:
-            return jsonify({"error": "invalid image data"}), 400
+    elif "image" in request.form:
+        import re
+        import base64
+        m = re.match(r"data:image/(.+);base64,(.*)$", request.form["image"].strip())
         ext = m.group(1).split("/")[-1]
         b64 = m.group(2)
         content = base64.b64decode(b64)
