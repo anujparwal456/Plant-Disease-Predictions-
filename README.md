@@ -216,7 +216,7 @@ Body: image file
 ## 📊 Model Information
 
 - **Architecture**: Custom Convolutional Neural Network (CNN)
-- **Training Dataset**: PlantDoc Dataset (19,000+ images)
+- **Training Dataset**: PlantDoc Dataset (24,000+ images)
 - **Number of Classes**: 38 plant disease categories
 - **Input Size**: 224x224 RGB images
 - **Average Accuracy**: 94%+
@@ -264,4 +264,5 @@ For questions or support, please open an issue or contact:
 ⭐ If you find this project helpful, please consider giving it a star!
 
 Made with ❤️ by [Anuj Parwal](https://github.com/anujparwal456)
+
 
